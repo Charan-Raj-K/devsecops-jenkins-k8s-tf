@@ -4,7 +4,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.t246osslab.easybuggy</groupId>
-	<artifactId>easybuggy</artifactId>
+	<artifactId>jenkins-easybuggy</artifactId>
 	<version>1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -311,7 +311,7 @@
       <version>2.0.0</version>
       <inherited>false</inherited>
       <configuration>
-        <org>gitlabsonarsnykintegration</org>  
+        <org>jenkins-integration</org>  
       </configuration>
     </plugin>
 <!-- Snyk Changes for SCA Ends Here -->
