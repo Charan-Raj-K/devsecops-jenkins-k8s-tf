@@ -19,7 +19,7 @@ pipeline {
 
      stage('docker-build'){
        steps{
-         withDockerRegistery([credentialsId: "DOCKER_LOGIN", url: ""]){
+         withDockerRegistry([credentialsId: "DOCKER_LOGIN", url: ""]){
             script{
                   app = docker.build("devsecops-pipeline-app")
             }
