@@ -1,0 +1,69 @@
+# Update package lists
+    sudo apt-get update
+
+    # Install prerequisites
+    sudo apt-get install -y apt-transport-https ca-certificates curl
+
+    # Download kubectl binary
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+    # Validate the downloaded binary (optional)
+    # You can skip this step if you don't want to validate the checksum
+    # Download the kubectl checksum file
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+
+    # Validate the kubectl binary against the checksum file
+    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+    # Install kubectl
+    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+    # Clean up downloaded files
+    rm kubectl kubectl.sha256
+
+    # Check if kubectl installation was successful
+    if [ $? -eq 0 ]; then
+        echo "kubectl installation completed successfully."
+    else
+        echo "Error: kubectl installation failed. Please check the logs and try again."
+        exit 1
+    fi
+
+    # Download and install eksctl
+    sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | sudo tar xz -C /tmp
+    sudo mv /tmp/eksctl /usr/local/bin
+
+    # Download and install AWS CLI version 2
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+
+    # Check if AWS CLI installation was successful
+    if [ $? -eq 0 ]; then
+        echo "AWS CLI version 2 installation completed successfully."
+    else
+        echo "Error: AWS CLI version 2 installation failed. Please check the logs and try again."
+        exit 1
+    fi
+
+    # Install Helm prerequisites
+    sudo apt-get install -y apt-transport-https gnupg
+    curl -fsSL https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+    sudo apt-get install -y software-properties-common
+    sudo add-apt-repository "deb [arch=amd64] https://baltocdn.com/helm/stable/debian/ all main"
+
+    # Update package lists again
+    sudo apt-get update
+
+    # Install Helm
+    sudo apt-get install -y helm
+
+    # Check if all installations were successful
+    if [ $? -eq 0 ]; then
+        echo "All installations completed successfully."
+    else
+        echo "Error: One or more installations failed. Please check the logs and try again."
+        exit 1
+    fi
+  SHELL
+end
