@@ -37,6 +37,7 @@ pipeline {
      stage('K8S deployment of dsa Bugg Web Application '){
       steps {
          withKubeConfig([credentialsId: 'kubelogin']){
+            sh ('kubectl get namespaces')
             sh ('kubectl delete all --all -n devsecops')
             sh ('kubectl apply -f deployment.yaml --namespace=devsecops')
          }
