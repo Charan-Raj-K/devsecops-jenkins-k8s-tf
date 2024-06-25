@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: dpabuggy
-        image: 375016145121.dkr.ecr.us-east-2.amazonaws.com/dpa
+        image: https://375016145121.dkr.ecr.us-east-2.amazonaws.com/dpa
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
