@@ -39,7 +39,7 @@ pipeline {
          withKubeConfig([credentialsId: 'kubelogin']){
             sh ('kubectl get namespaces')
             sh ('kubectl delete all --all -n devsecops')
-            sh ('kubectl apply -f deployment.yaml --namespace=devsecops')
+            sh ('kubectl apply -f Deployment.yaml --namespace=devsecops')
          }
        }
      }    
