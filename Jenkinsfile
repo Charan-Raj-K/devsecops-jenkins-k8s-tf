@@ -28,9 +28,7 @@ pipeline {
      stage('push-image-to-ecr'){
       steps{
          script{
-//            docker.withRegistry('https://375016145121.dkr.ecr.us-east-2.amazonaws.com','ecr:us-east-2:AWS-CREDS')
-            docker.withRegistry('https://public.ecr.aws/v0i3q4n8/dpapublic','')
-            {
+            docker.withRegistry('https://375016145121.dkr.ecr.us-east-2.amazonaws.com','ecr:us-east-2:AWS-CREDS'){
                   app.push("Latest")
             }
          }   
