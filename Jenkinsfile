@@ -14,9 +14,8 @@ pipeline {
              withCredentials([string(credentialsId: 'SNYK_TOKEN', variable: 'SNYK_TOKEN')]) {
              sh 'mvn snyk:test -fn'
                 }     
-            }
+         }
      }
-
      stage('docker-build'){
        steps{
          withDockerRegistry([credentialsId: "DOCKER_LOGIN", url: ""]){
@@ -26,7 +25,6 @@ pipeline {
          }   
        }
      }
-
      stage('push-image-to-ecr'){
       steps{
          script{
@@ -35,6 +33,14 @@ pipeline {
             }
          }   
       }
+   }
+     stage('K8S deployment of dsa Bugg Web Application '){
+      steps {
+         withKubeConfig([credentialsId: 'kubelogin']){
+            sh ('kubectl delete all --all -n devsecops')
+            sh ('kubectl apply -f deployment.yaml --namespace=devsecops')
+         }
+       }
      }    
   }
 }

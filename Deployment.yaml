@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devsecops-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devsecops-pipeline-app
+  template:
+    metadata:
+      labels:
+        app: devsecops-pipeline-app
+    spec:
+      containers:
+      - name: devsecops-pipeline-app
+        image: 375016145121.dkr.ecr.us-east-2.amazonaws.com/devsecops-pipeline-app
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: devsecops-pipeline-app
+    k8s-app: devsecops-pipeline-app
+  name: devsecops-pipeline-app
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  type: LoadBalancer
+  selector:
+    app: devsecops-pipeline-app
