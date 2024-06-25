@@ -27,7 +27,7 @@ pipeline {
          }   
        }
      }
-     stage('push-image-to-ecr'){
+/*     stage('push-image-to-ecr'){
       steps{
          script{
             docker.withRegistry('https://375016145121.dkr.ecr.us-east-2.amazonaws.com','ecr:us-east-2:AWS-CREDS'){
@@ -35,7 +35,7 @@ pipeline {
             }
          }   
       }
-   }
+   }*/
      stage('K8S deployment of dsa Bugg Web Application '){
       steps {
          withKubeConfig([credentialsId: 'kubelogin']){
