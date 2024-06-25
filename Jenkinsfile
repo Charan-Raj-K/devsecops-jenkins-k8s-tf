@@ -20,7 +20,9 @@ pipeline {
        steps{
          withDockerRegistry([credentialsId: "DOCKER_LOGIN", url: ""]){
             script{
-                  app = docker.build("dpa")
+//                  app = docker.build("dpa")
+              sh ('docker build -t charanrajkumar9/dsa')
+              sh ('docker push charanrajkumar9/dsa')
             }
          }   
        }
