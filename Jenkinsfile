@@ -20,7 +20,7 @@ pipeline {
        steps{
          withDockerRegistry([credentialsId: "DOCKER_LOGIN", url: ""]){
             script{
-                  app = docker.build("devsecops-pipeline-app")
+                  app = docker.build("dpa")
             }
          }   
        }
